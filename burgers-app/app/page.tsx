@@ -1,11 +1,20 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+// import { useRouter } from "next/navigation"
+import Link from "next/link"
+
 
 export default function Home() {
+  // const router = useRouter();
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
+        {/* <button className={styles.button} onClick={() => router.replace("/restaurants")}>
+          Navigate to Restaurants
+        </button> */}
+        <Link href="/restaurants">
+          Navigate to Restaurants
+        </Link>
+        {/* <p>
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.tsx</code>
         </p>
@@ -88,8 +97,7 @@ export default function Home() {
           <p>
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
-        </a>
-      </div>
+        </a> */}
     </main>
   );
 }

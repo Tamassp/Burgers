@@ -5,7 +5,13 @@
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
+  /* max-width: 1048px; */
 }
+
+.section {
+  width: 100vw;
+  max-width: 1200px;
+} 
 
 .description {
   display: inherit;
