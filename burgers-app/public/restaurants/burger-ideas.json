@@ -1,5 +1,32 @@
 {
     "id": "bureger-ideas",
     "name": "Burger Ideas",
-    "image": "/images/burger-ideas.jpg"
+    "image": "/images/burger-ideas.jpg",
+    "rating": 4.5,
+    "menuItems": [
+        {
+            "id": "spicy-burger",
+            "name": "Spicy Burger",
+            "price": 5.99,
+            "description": "Spicy burger with jalapeno and pepper jack cheese"
+        },
+        {
+            "id": "double-favour",
+            "name": "Double Favour",
+            "price": 4.99,
+            "description": "Double patty burger with cheddar cheese"
+        },
+        {
+            "id": "grilled-burger",
+            "name": "Grilled Burger",
+            "price": 2.99,
+            "description": "Grilled burger with lettuce and tomato"
+        },
+        {
+            "id": "smokey-burger",
+            "name": "Smokey Burger",
+            "price": 3.99,
+            "description": "Smokey burger with bacon and cheddar cheese"
+        }
+    ]
 }

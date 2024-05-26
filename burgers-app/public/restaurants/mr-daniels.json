@@ -1,5 +1,26 @@
 {
     "id": "mr-daniels",
     "name": "Mr. Daniel's",
-    "image": "/images/mr-daniels.jpg"
+    "image": "/images/mr-daniels.jpg",
+    "rating": 4.5,
+    "menuItems": [
+        {
+            "id": "four-plus-one",
+            "name": "Four Plus One",
+            "price": 3.99,
+            "description": "Four beef patties, one slice of cheese"
+        },
+        {
+            "id": "blue-burger",
+            "name": "Blue Burger",
+            "price": 5.99,
+            "description": "Blue cheese, bacon, lettuce, tomato, onion"
+        },
+        {
+            "id": "smash-burger",
+            "name": "Smash Burger",
+            "price": 10.99,
+            "description": "Two beef patties, bacon, lettuce, tomato, onion, pickles, special sauce"
+        }
+    ]
 }
