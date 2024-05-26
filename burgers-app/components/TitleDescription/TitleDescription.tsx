@@ -1,5 +1,5 @@
 
-export interface TitleDescriptionProps {
+export interface TitleDescriptionProps extends React.HTMLAttributes<HTMLDivElement> {
     title: string;
     description?: string;
     children?: React.ReactNode;
@@ -8,13 +8,15 @@ export interface TitleDescriptionProps {
 const TitleDescription = ({
     title,
     description,
-    children
+    children,
+    style,
+    ...props
 }: TitleDescriptionProps): JSX.Element => {
     return (
-        <div style={containerStyles}>
-            <h1>{title}</h1>
-            {description && <p>{description}</p>}
-            {children}
+        <div style={{...containerStyles, ...style}}>
+            <h2>{title}</h2>
+            {description && <p style={{marginTop: 4}}>{description}</p>}
+            {children && <div style={{marginTop: 8}}>{children}</div>}
         </div>
     )
 }
