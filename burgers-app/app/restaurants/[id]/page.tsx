@@ -3,6 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { useRestaurantContext } from "@/contexts/RestaurantContext"
+import { Rating } from "react-simple-star-rating"
 import styles from "./page.module.css"
 import globalStyles from "./../../page.module.css"
 import Image from "next/image"
@@ -11,11 +12,17 @@ import ProductCard from "@/components/ProductCard/ProductCard"
 import Divider from "@/components/Divider/Divider"
 import RatingCard from "@/components/RatingCard/RatingCard"
 import { IMenuItem, IReview } from "@/interfaces/interfaces"
+import TitleDescription from "@/components/TitleDescription/TitleDescription"
+import { calculateAverage } from "@/helpers/helpers"
 
 export default function Restaurant({ params }: { params: { id: string } }) {
     const router = useRouter();
-    const { restaurant, getRestaurantById, setRestaurant } = useRestaurantContext();
-
+    const { restaurant, getRestaurantById, setRestaurant, updateRestaurantWithReview } = useRestaurantContext();
+    const [loading, setLoading] = React.useState<boolean>(true);
+    const [tasteRating, setTasteRating] = React.useState<number>(0);
+    const [textureRating, setTextureRating] = React.useState<number>(0);
+    const [presentationRating, setPresentationRating] = React.useState<number>(0);
+    const [isRatingReady, setIsRatingReady] = React.useState<boolean>(false);
     // React.useEffect(() => {
     //     console.log('Restaurant', restaurant);
     //     getRestaurantById(params.id);
@@ -31,6 +38,49 @@ export default function Restaurant({ params }: { params: { id: string } }) {
       })
     }, [])
 
+
+    const handleRatingTaste = (rate: number) => {
+        setTasteRating(rate);
+    }
+
+    const handleRatingTexture = (rate: number) => {
+        setTextureRating(rate);
+    }
+
+    const handleRatingPresentation = (rate: number) => {
+        setPresentationRating(rate);
+    }
+
+    const onPointerEnter = (e: any) => {
+        console.log('Enter', e);
+    }
+
+    const onPointerLeave = (e: any) => {
+        console.log('Leave', e);
+    }
+
+    const onPointerMove = (e: any) => {
+        console.log('Move', e);
+    }
+
+    const handleSubmitReview = React.useCallback(async () => {
+        console.log('Submit Review', tasteRating, textureRating, presentationRating);
+        const ratingAVG =  calculateAverage([tasteRating, textureRating, presentationRating]);
+        await updateRestaurantWithReview({
+            id: '1',
+            name: 'John Doe',
+            comment: 'Great burgers!',
+            rating: ratingAVG
+        });
+    }, [tasteRating, textureRating, presentationRating, updateRestaurantWithReview]);
+
+    // CHECK IF RATINGS ARE READY
+    React.useEffect(() => {
+        if (tasteRating && textureRating && presentationRating) {
+            setIsRatingReady(true);
+        }
+    }, [tasteRating, textureRating, presentationRating]);
+
     React.useEffect(() => {
         console.log('Restaurant', restaurant);
     }
@@ -45,13 +95,42 @@ export default function Restaurant({ params }: { params: { id: string } }) {
                 </div>
                 <div className={styles.col6} style={{display: 'flex', justifyContent: 'center'}}>
                     {restaurant ? (
-                    <div className={styles.col5}>
+                    <div className={styles.col5} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <h1>{params.id}</h1>
                         <p>The best burgers in town!</p>
                         <p>Rating: {restaurant.rating}</p>
+                        {/* COMPONENTS WERE NOT EXPORTED ON PURPOSE,
+                        TO SHOWCASE A POSSIBLE SOLUTION ON THE DEMO */}
+                        <TitleDescription title="Taste" titleStyle={{textAlign: 'center'}}>
+                            <Rating 
+                                onClick={handleRatingTaste}
+                                onPointerEnter={onPointerEnter}
+                                onPointerLeave={onPointerLeave}
+                                onPointerMove={onPointerMove}
+                            />
+                        </TitleDescription>
+                        <TitleDescription title="Texture" titleStyle={{textAlign: 'center'}}>
+                            <Rating 
+                                onClick={handleRatingTexture}
+                                onPointerEnter={onPointerEnter}
+                                onPointerLeave={onPointerLeave}
+                                onPointerMove={onPointerMove}
+                            />
+                        </TitleDescription>
+                        <TitleDescription title="Visual Presentation" titleStyle={{textAlign: 'center'}}>
+                            <Rating 
+                                onClick={handleRatingPresentation}
+                                onPointerEnter={onPointerEnter}
+                                onPointerLeave={onPointerLeave}
+                                onPointerMove={onPointerMove}
+                            />
+                        </TitleDescription>
+                        <Divider />
+                        <button disabled={!isRatingReady} onClick={handleSubmitReview} >Submit Review</button>
                     </div>) : (
                         <p>Loading...</p>
                     )}
+                   
                 </div>
             </div>
             {/* DIVIDER */}
