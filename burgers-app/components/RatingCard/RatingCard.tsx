@@ -7,7 +7,7 @@ import TitleDescription from '../TitleDescription/TitleDescription'
 
 export interface RatingCardProps extends CardProps {
     comment: string
-    id: string
+    // id: string
     name: string
     rating: number
 }
@@ -15,7 +15,7 @@ export interface RatingCardProps extends CardProps {
 const RatingCard = ({
     children,
     comment,
-    id,
+    // id,
     name,
     rating,
     style,

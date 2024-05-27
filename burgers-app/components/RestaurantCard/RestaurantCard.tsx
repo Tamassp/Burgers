@@ -40,9 +40,11 @@ const RestaurantCard = ({
 
     return (
           <Card onClick={handleClick}>
+            {/* Image */}
+            {/* Logo */}
             {restaurant ? (
-            <TitleDescription title={restaurant.id} description="The best burgers in town!">
-                <p>Rating: 5.0</p>
+            <TitleDescription title={restaurant.id} description={restaurant.address}>
+                <p>{restaurant.rating}</p>
             </TitleDescription>) : (
                 <p>Loading...</p>
             )}
