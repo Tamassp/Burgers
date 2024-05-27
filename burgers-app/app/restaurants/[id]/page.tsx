@@ -8,6 +8,9 @@ import globalStyles from "./../../page.module.css"
 import Image from "next/image"
 import Swiper from "@/components/Swiper/Swiper"
 import ProductCard from "@/components/ProductCard/ProductCard"
+import Divider from "@/components/Divider/Divider"
+import RatingCard from "@/components/RatingCard/RatingCard"
+import { IMenuItem, IReview } from "@/interfaces/interfaces"
 
 export default function Restaurant({ params }: { params: { id: string } }) {
     const router = useRouter();
@@ -55,7 +58,7 @@ export default function Restaurant({ params }: { params: { id: string } }) {
             {/* SWIPER */}
             <Swiper>
                 {restaurant.menuItems ? (
-                    restaurant.menuItems.map((menuItem, index) => (
+                    restaurant.menuItems.map((menuItem: IMenuItem, index: number) => (
                         <ProductCard
                             key={index}
                             id={menuItem.id}
@@ -63,6 +66,25 @@ export default function Restaurant({ params }: { params: { id: string } }) {
                             title={menuItem.name}
                             description={menuItem.description}
                             price={menuItem.price}
+                            // price={menuItem.price}
+                        />
+                    ))
+                ) : (
+                    <p>Loading...</p>
+                )}
+            </Swiper>
+            <Divider />
+            <Swiper>
+                {restaurant.reviews ? (
+                    restaurant.reviews.map((review: IReview, index: number) => (
+                        <RatingCard
+                            key={index}
+                            id={review.id}
+                            // imageSrc={`/images/${rating.id}.jpg`}
+                            name={review.name}
+                            comment={review.comment}
+                            rating={review.rating}
+                            // price={rating.price}
                             // price={menuItem.price}
                         />
                     ))

@@ -22,5 +22,19 @@
             "price": 2.99,
             "description": "A tall burger with lettuce, tomato, and pickles."
         }
+    ],
+    "reviews": [
+        {
+            "id": "review-1",
+            "name": "John Doe",
+            "rating": 5,
+            "comment": "Great burgers!"
+        },
+        {
+            "id": "review-2",
+            "name": "Jane Doe",
+            "rating": 4,
+            "comment": "Good burgers!"
+        }
     ]
 }

@@ -1,22 +1,35 @@
 
 export interface TitleDescriptionProps extends React.HTMLAttributes<HTMLDivElement> {
-    title: string;
+    childrenStyle?: React.CSSProperties;
     description?: string;
-    children?: React.ReactNode;
+    descriptionStyle?: React.CSSProperties;
+    title: string;
+    titleStyle?: React.CSSProperties;
 }
 
 const TitleDescription = ({
-    title,
-    description,
     children,
+    childrenStyle,
+    description,
+    descriptionStyle,
     style,
+    title,
+    titleStyle,
     ...props
 }: TitleDescriptionProps): JSX.Element => {
     return (
-        <div style={{...containerStyles, ...style}}>
-            <h2>{title}</h2>
-            {description && <p style={{marginTop: 4}}>{description}</p>}
-            {children && <div style={{marginTop: 8}}>{children}</div>}
+        <div style={{...containerStyles, ...style}} {...props} >
+            <h2 style={{...titleStyles, ...titleStyle}}>
+                {title}
+            </h2>
+            {description && 
+                <p style={{...descriptionStyles, ...descriptionStyle}}>
+                    {description}
+                </p>}
+            {children && 
+                <div style={{...childrenStyles, ...childrenStyle}}>
+                    {children}
+                </div>}
         </div>
     )
 }
@@ -32,5 +45,19 @@ const containerStyles: React.CSSProperties = {
     // backgroundColor: 'lightgray',
     // borderRadius: '12px',
 };
+
+const titleStyles: React.CSSProperties = {
+
+}
+
+const descriptionStyles: React.CSSProperties = {
+    marginTop: 4,
+};
+
+const childrenStyles: React.CSSProperties = {
+    marginTop: 8,
+};
+
+
 
 export default TitleDescription;

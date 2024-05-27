@@ -1,16 +1,31 @@
-export default interface IMenuItem {
+export interface IMenuItem {
+    id: string;
     name: string;
     description?: string;
     price: number;
 }
 
-export default interface IRestaurant {
+export interface IReview {
+    id: string;
+    name: string;
+    comment: string;
+    rating: number;
+}
+
+export interface IUser {
+    name: string;
+    email: string;
+    phone: string;
+}
+
+export interface IRestaurant {
     id: string;
     name: string;
     address: string;
     phone: string;
     rating: number;
     menuItems: IMenuItem[];
+    reviews: IReview[];
     location: {
         lat: number;
         lng: number;
