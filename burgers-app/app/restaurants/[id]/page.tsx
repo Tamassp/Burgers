@@ -14,6 +14,7 @@ import RatingCard from "@/components/RatingCard/RatingCard"
 import { IMenuItem, IReview } from "@/interfaces/interfaces"
 import TitleDescription from "@/components/TitleDescription/TitleDescription"
 import { calculateAverage } from "@/helpers/helpers"
+import FileUpload from "@/components/FileUpload/FileUpload"
 
 export default function Restaurant({ params }: { params: { id: string } }) {
     const router = useRouter();
@@ -73,6 +74,10 @@ export default function Restaurant({ params }: { params: { id: string } }) {
             rating: ratingAVG
         });
     }, [tasteRating, textureRating, presentationRating, updateRestaurantWithReview]);
+
+    const handleFileChange = (e: any) => {
+        console.log('File', e.target.files);
+    }
 
     // CHECK IF RATINGS ARE READY
     React.useEffect(() => {
@@ -171,6 +176,19 @@ export default function Restaurant({ params }: { params: { id: string } }) {
                     <p>Loading...</p>
                 )}
             </Swiper>
+            <Divider scale={4} />
+            
+            {/* IMAGE UPLOAD */}
+
+            {/* STYLES COULD BE EXPORTED TO SEPARATE STYLE SHEETS SOON */}
+            <TitleDescription 
+                title="Upload Image"
+                description="The best pictures will be featured on our website!" 
+                titleStyle={{textAlign: 'center'}}
+                descriptionStyle={{textAlign: 'center', maxWidth: 300, margin: '0 auto', marginTop: 16}}
+                childrenStyle={{display: 'flex', justifyContent:'center', marginTop: 16}}>
+                <FileUpload />
+            </TitleDescription>
         </main>
     );
 }

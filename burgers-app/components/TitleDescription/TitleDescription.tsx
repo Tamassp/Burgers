@@ -47,7 +47,7 @@ const containerStyles: React.CSSProperties = {
 };
 
 const titleStyles: React.CSSProperties = {
-
+    
 }
 
 const descriptionStyles: React.CSSProperties = {
