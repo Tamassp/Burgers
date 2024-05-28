@@ -98,7 +98,7 @@ export default function Restaurant({ params }: { params: { id: string } }) {
             {/* <h1>Restaurant {params.id}</h1> */}
             <div className={globalStyles.fullWidthSection} style={{position: 'relative'}}>
                 <div style={imageWrapperStyles}>
-                    <Image src={`/images/${params.id}.jpg`} alt="Burger" fill style={{objectFit: 'cover'}} />
+                    <Image src={`/images/${params.id}.jpg`} alt="Burger" fill style={{objectFit: 'cover', }} />
                 </div>
             </div>
             <div className={globalStyles.fullWidthSection} style={restaurantDescriptionStyles}>
@@ -126,17 +126,6 @@ export default function Restaurant({ params }: { params: { id: string } }) {
                             />
                             <p>Rating: {dynamicRating}</p>
                         </TitleDescription>
-                        {/* <TitleDescription 
-                            title={restaurant.name} 
-                            titleStyle={{textAlign: 'center', fontSize: 24, fontWeight: 'bold'}}
-                            description={restaurant.address}
-                            descriptionStyle={{textAlign: 'center'}} 
-                            childrenStyle={{marginTop: 16, textAlign: 'center'}}
-                            >
-                            <p>Open: {restaurant.openingTime}</p>
-                            <b>Rating: {dynamicRating}</b>
-                        </TitleDescription> */}
-                        
                     </div>) : (
                         <p>Loading...</p>
                     )}
@@ -220,9 +209,9 @@ export default function Restaurant({ params }: { params: { id: string } }) {
                 </div>
                 <Divider />
                 <button 
-                    disabled={!isRatingReady} 
+                    disabled={!isRatingReady}
                     onClick={handleSubmitReview}
-                    style={buttonStyles} >Submit Review</button>
+                    style={isRatingReady ? buttonStyles : disabledStyles} >Submit Review</button>
             </div>
             <Divider scale={4} />
             {/* IMAGE UPLOAD */}
@@ -283,5 +272,14 @@ const buttonStyles: React.CSSProperties = {
     backgroundColor: 'black',
     color: 'white',
     cursor: 'pointer',
+    minWidth: 100,
+}
+
+const disabledStyles: React.CSSProperties = {
+    padding: 8,
+    borderRadius: 8,
+    backgroundColor: 'gray',
+    color: 'white',
+    cursor: 'not-allowed',
     minWidth: 100,
 }

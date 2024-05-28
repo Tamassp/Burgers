@@ -97,7 +97,7 @@ const FileUpload = ({
             </div>
             <Divider />
             {/* UPLOAD BUTTON */}
-             <button disabled={!file} style={buttonStyles}>Upload</button>
+             <button disabled={!file} style={file ? buttonStyles : disabledStyles}>Upload</button>
         </div>
     )
 }
@@ -127,6 +127,15 @@ const buttonStyles: React.CSSProperties = {
     backgroundColor: 'black',
     color: 'white',
     cursor: 'pointer',
+    minWidth: 100,
+}
+
+const disabledStyles: React.CSSProperties = {
+    padding: 8,
+    borderRadius: 8,
+    backgroundColor: 'gray',
+    color: 'white',
+    cursor: 'not-allowed',
     minWidth: 100,
 }
 

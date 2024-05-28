@@ -7,6 +7,8 @@ import Image from "next/image"
 import TitleDescription from '@/components/TitleDescription/TitleDescription'
 import Card from '@/components/Card/Card'
 import RestaurantCard from '@/components/RestaurantCard/RestaurantCard'
+import Swiper from '@/components/Swiper/Swiper'
+import Divider from '@/components/Divider/Divider'
 
 async function fetchRestaurants() {
     // const router = useRouter();
@@ -21,17 +23,29 @@ export default async function Restaurants() {
     const restaurants = await fetchRestaurants();
     console.log("RR",restaurants);
     return (
-        <main className={styles.main}>
-            <section className={styles.section}>
-                <Map />
+        <main style={containerStyles}>
+            <section className={styles.fullWidthSection}>
+                <div style={{marginTop: 16}}>
+                    <Map />
+                </div>
+                
+            </section>
+            <section className={styles.paddingSection} >
+                <Divider scale={4} />
                 <h1>Restaurants</h1>
-                <div style={{position: 'relative', width: 406, height: 244}}>
+                {/* <div style={{position: 'relative', width: 406, height: 244}}>
                     <Image src={"/images/burger-shock.jpg"} alt="Burger" fill />
-                </div>   
-                {restaurants.map((restaurant: any) => (
-                    <RestaurantCard key={restaurant} id={restaurant} />
-                ))}
+                </div>    */}
+                <Swiper>
+                    {restaurants.map((restaurant: any) => (
+                        <RestaurantCard key={restaurant} id={restaurant} />
+                    ))}
+                </Swiper>
             </section>
         </main>
     );
+}
+
+const containerStyles: React.CSSProperties = {
+    height: '100vh',
 }

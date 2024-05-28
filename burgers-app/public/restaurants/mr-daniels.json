@@ -1,6 +1,8 @@
 {
     "id": "mr-daniels",
     "name": "Mr. Daniel's",
+    "openingTime": "10:00 - 22:00",
+    "address": "1234 Burger Street, Burger Town",
     "image": "/images/mr-daniels.jpg",
     "rating": 4.5,
     "menuItems": [
@@ -21,6 +23,20 @@
             "name": "Smash Burger",
             "price": 10.99,
             "description": "Two beef patties, bacon, lettuce, tomato, onion, pickles, special sauce"
+        }
+    ],
+    "reviews": [
+        {
+            "id": "review-1",
+            "name": "John Doe",
+            "rating": 5,
+            "comment": "Great burgers!"
+        },
+        {
+            "id": "review-2",
+            "name": "Jane Doe",
+            "rating": 4.2,
+            "comment": "Good burgers!"
         }
     ]
 }

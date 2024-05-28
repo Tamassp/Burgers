@@ -4,6 +4,7 @@ import Card from '../Card/Card'
 import TitleDescription from '../TitleDescription/TitleDescription'
 import { useRouter } from 'next/navigation'
 import { IRestaurant } from '@/interfaces/interfaces'
+import Image from "next/image";
 
 
 export interface RestaurantCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -39,11 +40,19 @@ const RestaurantCard = ({
     }, [restaurant]);
 
     return (
-          <Card onClick={handleClick}>
-            {/* Image */}
+          <Card onClick={handleClick} style={containerStyles}>
+            {restaurant && restaurant.image ? (
+                <div style={imageWrapperStyles}>
+                    <Image src={restaurant.image} alt="Burger" fill style={imageStyles} />
+                </div>
+            ) : (
+                <div style={imageWrapperStyles}>
+                    <p>loading</p>
+                </div>
+            )}
             {/* Logo */}
             {restaurant ? (
-            <TitleDescription title={restaurant.id} description={restaurant.address}>
+            <TitleDescription title={restaurant.name} description={restaurant.openingTime}>
                 <p>{restaurant.rating}</p>
             </TitleDescription>) : (
                 <p>Loading...</p>
@@ -54,8 +63,17 @@ const RestaurantCard = ({
 
 const containerStyles: React.CSSProperties = {
     
-
-    
+    minWidth: '438px',
 };
+
+const imageStyles: React.CSSProperties = {
+    borderRadius: '8px',
+}
+
+const imageWrapperStyles: React.CSSProperties = {
+    position: 'relative',
+    height: 224,
+    width: 406,
+}
 
 export default RestaurantCard;

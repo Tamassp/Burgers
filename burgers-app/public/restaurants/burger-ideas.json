@@ -1,6 +1,8 @@
 {
     "id": "bureger-ideas",
     "name": "Burger Ideas",
+    "openingTime": "10:00 - 22:00",
+    "address": "1234 Burger Street, Burger Town",
     "image": "/images/burger-ideas.jpg",
     "rating": 4.5,
     "menuItems": [
@@ -27,6 +29,20 @@
             "name": "Smokey Burger",
             "price": 3.99,
             "description": "Smokey burger with bacon and cheddar cheese"
+        }
+    ],
+    "reviews": [
+        {
+            "id": "review-1",
+            "name": "John Doe",
+            "rating": 5,
+            "comment": "Great burgers!"
+        },
+        {
+            "id": "review-2",
+            "name": "Jane Doe",
+            "rating": 4.2,
+            "comment": "Good burgers!"
         }
     ]
 }
