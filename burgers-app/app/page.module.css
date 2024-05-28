@@ -8,10 +8,19 @@
   /* max-width: 1048px; */
 }
 
-.section {
+.fullWidthSection {
   width: 100vw;
   max-width: 1200px;
+  margin: 0 auto;
 } 
+
+.paddingSection{
+  width: 100vw;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
 
 .description {
   display: inherit;

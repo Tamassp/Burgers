@@ -24,11 +24,13 @@ export default function Restaurant({ params }: { params: { id: string } }) {
     const [textureRating, setTextureRating] = React.useState<number>(0);
     const [presentationRating, setPresentationRating] = React.useState<number>(0);
     const [isRatingReady, setIsRatingReady] = React.useState<boolean>(false);
+    
+    const dynamicRating = calculateAverage(restaurant.reviews.map((review: IReview) => review.rating));
+    
     // React.useEffect(() => {
     //     console.log('Restaurant', restaurant);
     //     getRestaurantById(params.id);
     // }, [params.id]);
-
     //alternatively
     React.useEffect(() => {
         fetch(`http://localhost:3000/restaurants/${params.id}.json`)
@@ -94,51 +96,55 @@ export default function Restaurant({ params }: { params: { id: string } }) {
     return (
         <main style={containerStyles}>
             {/* <h1>Restaurant {params.id}</h1> */}
-            <div className={globalStyles.section} style={{flexDirection: 'row', display: 'flex', flexWrap: 'nowrap'}}>
-                <div style={{position: 'relative', width: 406, height: 244}} className={styles.col6}>
-                    <Image src={`/images/${params.id}.jpg`} alt="Burger" fill />
+            <div className={globalStyles.fullWidthSection} style={{position: 'relative'}}>
+                <div style={imageWrapperStyles}>
+                    <Image src={`/images/${params.id}.jpg`} alt="Burger" fill style={{objectFit: 'cover'}} />
                 </div>
-                <div className={styles.col6} style={{display: 'flex', justifyContent: 'center'}}>
+            </div>
+            <div className={globalStyles.fullWidthSection} style={restaurantDescriptionStyles}>
+                    <Divider scale={4} />
                     {restaurant ? (
-                    <div className={styles.col5} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <h1>{params.id}</h1>
-                        <p>The best burgers in town!</p>
-                        <p>Rating: {restaurant.rating}</p>
-                        {/* COMPONENTS WERE NOT EXPORTED ON PURPOSE,
-                        TO SHOWCASE A POSSIBLE SOLUTION ON THE DEMO */}
-                        <TitleDescription title="Taste" titleStyle={{textAlign: 'center'}}>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <h1>{restaurant.name}</h1>
+                        <Divider scale={2} />
+                        <TitleDescription
+                            title={restaurant.openingTime}
+                            description={restaurant.address}
+                            titleStyle={{textAlign: 'center'}}
+                            descriptionStyle={{textAlign: 'center'}}
+                            childrenStyle={{marginTop: 16, textAlign: 'center'}}
+                        >
                             <Rating 
-                                onClick={handleRatingTaste}
-                                onPointerEnter={onPointerEnter}
-                                onPointerLeave={onPointerLeave}
-                                onPointerMove={onPointerMove}
+                                initialValue={dynamicRating}
+                                size={24}
+                                transition
+                                disableFillHover
+                                fillColor='orange'
+                                emptyColor='gray'
+                                readonly
+                                allowFraction    
                             />
+                            <p>Rating: {dynamicRating}</p>
                         </TitleDescription>
-                        <TitleDescription title="Texture" titleStyle={{textAlign: 'center'}}>
-                            <Rating 
-                                onClick={handleRatingTexture}
-                                onPointerEnter={onPointerEnter}
-                                onPointerLeave={onPointerLeave}
-                                onPointerMove={onPointerMove}
-                            />
-                        </TitleDescription>
-                        <TitleDescription title="Visual Presentation" titleStyle={{textAlign: 'center'}}>
-                            <Rating 
-                                onClick={handleRatingPresentation}
-                                onPointerEnter={onPointerEnter}
-                                onPointerLeave={onPointerLeave}
-                                onPointerMove={onPointerMove}
-                            />
-                        </TitleDescription>
-                        <Divider />
-                        <button disabled={!isRatingReady} onClick={handleSubmitReview} >Submit Review</button>
+                        {/* <TitleDescription 
+                            title={restaurant.name} 
+                            titleStyle={{textAlign: 'center', fontSize: 24, fontWeight: 'bold'}}
+                            description={restaurant.address}
+                            descriptionStyle={{textAlign: 'center'}} 
+                            childrenStyle={{marginTop: 16, textAlign: 'center'}}
+                            >
+                            <p>Open: {restaurant.openingTime}</p>
+                            <b>Rating: {dynamicRating}</b>
+                        </TitleDescription> */}
+                        
                     </div>) : (
                         <p>Loading...</p>
                     )}
-                   
-                </div>
+            <Divider scale={4} />
             </div>
-            {/* DIVIDER */}
+            <div className={globalStyles.paddingSection} style={swiperSection}>
+                <Divider scale={4} />
+                <h2>Menu</h2>
             {/* SWIPER */}
             <Swiper>
                 {restaurant.menuItems ? (
@@ -157,7 +163,8 @@ export default function Restaurant({ params }: { params: { id: string } }) {
                     <p>Loading...</p>
                 )}
             </Swiper>
-            <Divider />
+            <Divider scale={4} />
+            <h2>Reviews</h2>
             <Swiper>
                 {restaurant.reviews ? (
                     restaurant.reviews.map((review: IReview, index: number) => (
@@ -176,23 +183,105 @@ export default function Restaurant({ params }: { params: { id: string } }) {
                     <p>Loading...</p>
                 )}
             </Swiper>
+            </div>
             <Divider scale={4} />
-            
+            {/* COMPONENTS WERE NOT EXPORTED ON PURPOSE,
+            TO SHOWCASE A POSSIBLE SOLUTION ON THE DEMO */}
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <div style={{display: 'flex', flexDirection: 'row', marginTop: 16, flexWrap: 'wrap', gap: 32, justifyContent: 'center', width: '100%', padding: 16}}>
+                    <TitleDescription title="Taste" titleStyle={{textAlign: 'center'}}>
+                        <Rating 
+                            onClick={handleRatingTaste}
+                            onPointerEnter={onPointerEnter}
+                            onPointerLeave={onPointerLeave}
+                            onPointerMove={onPointerMove}
+                        />
+                    </TitleDescription>
+                    <TitleDescription 
+                        title="Visual Presentation" 
+                        titleStyle={{textAlign: 'center'}} 
+                        childrenStyle={{display: 'flex', flexDirection:'column', alignItems: 'center'}}
+                        >
+                        <Rating 
+                            onClick={handleRatingPresentation}
+                            onPointerEnter={onPointerEnter}
+                            onPointerLeave={onPointerLeave}
+                            onPointerMove={onPointerMove}
+                        />
+                    </TitleDescription>
+                    <TitleDescription title="Texture" titleStyle={{textAlign: 'center'}}>
+                        <Rating 
+                            onClick={handleRatingTexture}
+                            onPointerEnter={onPointerEnter}
+                            onPointerLeave={onPointerLeave}
+                            onPointerMove={onPointerMove}
+                        />
+                    </TitleDescription>
+                </div>
+                <Divider />
+                <button 
+                    disabled={!isRatingReady} 
+                    onClick={handleSubmitReview}
+                    style={buttonStyles} >Submit Review</button>
+            </div>
+            <Divider scale={4} />
             {/* IMAGE UPLOAD */}
-
-            {/* STYLES COULD BE EXPORTED TO SEPARATE STYLE SHEETS SOON */}
-            <TitleDescription 
-                title="Upload Image"
-                description="The best pictures will be featured on our website!" 
-                titleStyle={{textAlign: 'center'}}
-                descriptionStyle={{textAlign: 'center', maxWidth: 300, margin: '0 auto', marginTop: 16}}
-                childrenStyle={{display: 'flex', justifyContent:'center', marginTop: 16}}>
-                <FileUpload />
-            </TitleDescription>
+            <div className={globalStyles.fullWidthSection}>
+                {/* STYLES COULD BE EXPORTED TO SEPARATE STYLE SHEETS SOON */}
+                <TitleDescription 
+                    title="Upload Image"
+                    description="The best pictures will be featured on our website!" 
+                    titleStyle={{textAlign: 'center'}}
+                    childrenStyle={{marginTop: 16}}
+                    descriptionStyle={{maxWidth: 300, marginTop: 16, textAlign: 'center'}}
+                    style={uploadImageStyles}>
+                    <FileUpload />
+                </TitleDescription>
+            </div>
         </main>
     );
 }
 
 const containerStyles: React.CSSProperties = {
-    padding: 16,
+    // padding: 16,
+}
+
+const imageWrapperStyles: React.CSSProperties = {
+    // position: 'sticky',
+    // top: -16,
+    // left: 0,
+    // right: 0,
+    height: 300,
+    width: '100%',
+}
+
+const restaurantDescriptionStyles: React.CSSProperties = {
+    flexDirection: 'column', 
+    display: 'flex', 
+    alignItems: 'center',
+    // paddingTop: 64,
+    // paddingBottom: 64,
+    backgroundColor: 'white',
+}
+
+const swiperSection: React.CSSProperties = {
+    // paddingTop: 64,
+    // paddingBottom: 64,
+}
+
+const uploadImageStyles: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+}
+
+const buttonStyles: React.CSSProperties = {
+    padding: 8,
+    borderRadius: 8,
+    backgroundColor: 'black',
+    color: 'white',
+    cursor: 'pointer',
+    minWidth: 100,
 }

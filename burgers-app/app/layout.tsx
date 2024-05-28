@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { RestaurantProvider } from "@/contexts/RestaurantContext"
 import { Providers } from "@/providers/providers"
+import Divider from "@/components/Divider/Divider"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +22,21 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           {children}
+          {/* DUMMY FOOTER */}
+          <Divider size={32}/>
+          <footer style={footerStyles}>
+            <p>Footer</p>
+          </footer>
         </Providers>
       </body>
     </html>
   );
 }
+
+const footerStyles: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: 100,
+  borderTop: '1px solid black',
+};

@@ -1,6 +1,8 @@
 {
     "id": "burger-shock",
     "name": "Burger Shock",
+    "openingTime": "10:00 - 22:00",
+    "address": "1234 Burger Street, Burger Town",
     "image": "/images/burger-shock.jpg",
     "rating": 4.4,
     "menuItems": [
@@ -33,7 +35,7 @@
         {
             "id": "review-2",
             "name": "Jane Doe",
-            "rating": 4,
+            "rating": 4.2,
             "comment": "Good burgers!"
         }
     ]

@@ -1,8 +1,9 @@
-
+'use client'
 export interface TitleDescriptionProps extends React.HTMLAttributes<HTMLDivElement> {
     childrenStyle?: React.CSSProperties;
     description?: string;
     descriptionStyle?: React.CSSProperties;
+    textAlign?: 'center' | 'left' | 'right'
     title: string;
     titleStyle?: React.CSSProperties;
 }
@@ -47,7 +48,6 @@ const containerStyles: React.CSSProperties = {
 };
 
 const titleStyles: React.CSSProperties = {
-    
 }
 
 const descriptionStyles: React.CSSProperties = {
@@ -55,8 +55,13 @@ const descriptionStyles: React.CSSProperties = {
 };
 
 const childrenStyles: React.CSSProperties = {
+
     marginTop: 8,
 };
+
+const textAlign: React.CSSProperties = {
+    textAlign: 'center',
+}
 
 
 

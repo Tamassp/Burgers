@@ -2,8 +2,8 @@
 import React, { useCallback, useEffect } from 'react';
 import Card from '../Card/Card'
 import TitleDescription from '../TitleDescription/TitleDescription'
-import IRestaurant from '@/interfaces/interfaces'
 import { useRouter } from 'next/navigation'
+import { IRestaurant } from '@/interfaces/interfaces'
 
 
 export interface RestaurantCardProps extends React.HTMLAttributes<HTMLDivElement> {

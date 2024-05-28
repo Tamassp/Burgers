@@ -1,15 +1,18 @@
 import * as React from 'react';
 
 export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
-    
+    scale?: number;
+    size?: number;
 }
 
 const Divider = ({
+    scale = 1,
+    size,
     style,
     ...props
 }: DividerProps): JSX.Element => {
     return (
-        <div style={{...containerStyles, ...style}} {...props}>
+        <div style={{...containerStyles, ...style, margin: size || scale * 8 }} {...props}>
         </div>
     )
 }

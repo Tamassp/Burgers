@@ -41,7 +41,10 @@ const RatingCard = ({
     return (
         <Card {...props}>
             {user ? (
-            <TitleDescription title={name} description={comment}>
+            <TitleDescription 
+                title={name} 
+                description={comment}
+                >
                 <p>Rating: {rating}</p>
             </TitleDescription>) : (
                 <p>Loading...</p>

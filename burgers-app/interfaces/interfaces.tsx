@@ -21,6 +21,7 @@ export interface IUser {
 export interface IRestaurant {
     id: string;
     name: string;
+    openingTime: string;
     address: string;
     phone: string;
     rating: number;

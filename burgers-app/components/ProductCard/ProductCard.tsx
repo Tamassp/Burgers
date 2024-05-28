@@ -24,15 +24,14 @@ const ProductCard = ({
     ...props
 }: ProductCardProps): JSX.Element => {
     const [loading, setLoading] = React.useState<boolean>(true);
-
     return (
         <Card>
             {imageSrc ? (
-                <div style={{position: 'relative', height: 224, width: 406}}>
+                <div style={imageWrapperStyles}>
                     <Image src={imageSrc} alt="Burger" fill style={imageStyles} />
                 </div>
             ) : (
-                <div style={{height: 224, width: '100%'}}>
+                <div style={imageWrapperStyles}>
                     <p>loading</p>
                 </div>
             )}
@@ -55,6 +54,12 @@ const containerStyles: React.CSSProperties = {
 
 const imageStyles: React.CSSProperties = {
     borderRadius: '8px',
+}
+
+const imageWrapperStyles: React.CSSProperties = {
+    position: 'relative',
+    height: 224,
+    width: 406,
 }
 
 const priceStyles: React.CSSProperties = {
