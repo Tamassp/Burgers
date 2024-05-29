@@ -5,6 +5,8 @@ import TitleDescription from '../TitleDescription/TitleDescription'
 import { useRouter } from 'next/navigation'
 import { IRestaurant } from '@/interfaces/interfaces'
 import Image from "next/image";
+import { Rating } from 'react-simple-star-rating'
+import Divider from '../Divider/Divider'
 
 
 export interface RestaurantCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -51,9 +53,18 @@ const RestaurantCard = ({
                 </div>
             )}
             {/* Logo */}
+            <Divider />
             {restaurant ? (
             <TitleDescription title={restaurant.name} description={restaurant.openingTime}>
-                <p>{restaurant.rating}</p>
+                <Rating 
+                    initialValue={restaurant.rating}
+                    size={24}
+                    transition
+                    disableFillHover
+                    fillColor='orange'
+                    emptyColor='gray'
+                    readonly
+                    allowFraction/>
             </TitleDescription>) : (
                 <p>Loading...</p>
             )}

@@ -12,7 +12,10 @@ const Divider = ({
     ...props
 }: DividerProps): JSX.Element => {
     return (
-        <div style={{...containerStyles, ...style, margin: size || scale * 8 }} {...props}>
+        <div style={{
+            ...containerStyles, 
+            ...style, margin: size || scale * 8 
+            }} {...props}>
         </div>
     )
 }

@@ -6,6 +6,7 @@ import { useRestaurantContext } from "@/contexts/RestaurantContext"
 import { Rating } from "react-simple-star-rating"
 import styles from "./page.module.css"
 import globalStyles from "./../../page.module.css"
+import { calculateAverage } from "@/helpers/helpers"
 import Image from "next/image"
 import Swiper from "@/components/Swiper/Swiper"
 import ProductCard from "@/components/ProductCard/ProductCard"
@@ -13,7 +14,6 @@ import Divider from "@/components/Divider/Divider"
 import RatingCard from "@/components/RatingCard/RatingCard"
 import { IMenuItem, IReview } from "@/interfaces/interfaces"
 import TitleDescription from "@/components/TitleDescription/TitleDescription"
-import { calculateAverage } from "@/helpers/helpers"
 import FileUpload from "@/components/FileUpload/FileUpload"
 
 export default function Restaurant({ params }: { params: { id: string } }) {
@@ -31,6 +31,7 @@ export default function Restaurant({ params }: { params: { id: string } }) {
     //     console.log('Restaurant', restaurant);
     //     getRestaurantById(params.id);
     // }, [params.id]);
+
     //alternatively
     React.useEffect(() => {
         fetch(`http://localhost:3000/restaurants/${params.id}.json`)
@@ -67,12 +68,11 @@ export default function Restaurant({ params }: { params: { id: string } }) {
     }
 
     const handleSubmitReview = React.useCallback(async () => {
-        console.log('Submit Review', tasteRating, textureRating, presentationRating);
         const ratingAVG =  calculateAverage([tasteRating, textureRating, presentationRating]);
         await updateRestaurantWithReview({
-            id: '1',
-            name: 'John Doe',
-            comment: 'Great burgers!',
+            id: '1', // GUID
+            name: 'John Doe', // GET FROM USER CONTEXT
+            comment: 'Great burgers!', // USE TEXT INPUT
             rating: ratingAVG
         });
     }, [tasteRating, textureRating, presentationRating, updateRestaurantWithReview]);
@@ -88,6 +88,8 @@ export default function Restaurant({ params }: { params: { id: string } }) {
         }
     }, [tasteRating, textureRating, presentationRating]);
 
+    // DEBUGGING
+    // CHECK IF RESTAURANT IS READY
     React.useEffect(() => {
         console.log('Restaurant', restaurant);
     }
@@ -95,12 +97,15 @@ export default function Restaurant({ params }: { params: { id: string } }) {
 
     return (
         <main style={containerStyles}>
-            {/* <h1>Restaurant {params.id}</h1> */}
+
+            {/* COVER IMAGE */}
             <div className={globalStyles.fullWidthSection} style={{position: 'relative'}}>
                 <div style={imageWrapperStyles}>
                     <Image src={`/images/${params.id}.jpg`} alt="Burger" fill style={{objectFit: 'cover', }} />
                 </div>
             </div>
+
+            {/* RESTAURANT DESCRIPTION */}
             <div className={globalStyles.fullWidthSection} style={restaurantDescriptionStyles}>
                     <Divider scale={4} />
                     {restaurant ? (
@@ -131,49 +136,55 @@ export default function Restaurant({ params }: { params: { id: string } }) {
                     )}
             <Divider scale={4} />
             </div>
+
+            {/* SWIPERS */}
             <div className={globalStyles.paddingSection} style={swiperSection}>
                 <Divider scale={4} />
                 <h2>Menu</h2>
-            {/* SWIPER */}
-            <Swiper>
-                {restaurant.menuItems ? (
-                    restaurant.menuItems.map((menuItem: IMenuItem, index: number) => (
-                        <ProductCard
-                            key={index}
-                            id={menuItem.id}
-                            imageSrc={`/images/${menuItem.id}.jpg`}
-                            title={menuItem.name}
-                            description={menuItem.description}
-                            price={menuItem.price}
-                            // price={menuItem.price}
-                        />
-                    ))
-                ) : (
-                    <p>Loading...</p>
-                )}
-            </Swiper>
-            <Divider scale={4} />
-            <h2>Reviews</h2>
-            <Swiper>
-                {restaurant.reviews ? (
-                    restaurant.reviews.map((review: IReview, index: number) => (
-                        <RatingCard
-                            key={index}
-                            id={review.id}
-                            // imageSrc={`/images/${rating.id}.jpg`}
-                            name={review.name}
-                            comment={review.comment}
-                            rating={review.rating}
-                            // price={rating.price}
-                            // price={menuItem.price}
-                        />
-                    ))
-                ) : (
-                    <p>Loading...</p>
-                )}
-            </Swiper>
+
+                {/* MENU ITEM SWIPER */}
+                <Swiper>
+                    {restaurant.menuItems ? (
+                        restaurant.menuItems.map((menuItem: IMenuItem, index: number) => (
+                            <ProductCard
+                                key={index}
+                                id={menuItem.id}
+                                imageSrc={`/images/${menuItem.id}.jpg`}
+                                title={menuItem.name}
+                                description={menuItem.description}
+                                price={menuItem.price}
+                                // price={menuItem.price}
+                            />
+                        ))
+                    ) : (
+                        <p>Loading...</p>
+                    )}
+                </Swiper>
+                <Divider scale={4} />
+                <h2>Reviews</h2>
+
+                {/* REVIEWS SWIPER */}
+                <Swiper>
+                    {restaurant.reviews ? (
+                        restaurant.reviews.map((review: IReview, index: number) => (
+                            <RatingCard
+                                key={index}
+                                id={review.id}
+                                // imageSrc={`/images/${rating.id}.jpg`}
+                                name={review.name}
+                                comment={review.comment}
+                                rating={review.rating}
+                                // price={rating.price}
+                                // price={menuItem.price}
+                            />
+                        ))
+                    ) : (
+                        <p>Loading...</p>
+                    )}
+                </Swiper>
             </div>
             <Divider scale={4} />
+
             {/* COMPONENTS WERE NOT EXPORTED ON PURPOSE,
             TO SHOWCASE A POSSIBLE SOLUTION ON THE DEMO */}
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -214,8 +225,10 @@ export default function Restaurant({ params }: { params: { id: string } }) {
                     style={isRatingReady ? buttonStyles : disabledStyles} >Submit Review</button>
             </div>
             <Divider scale={4} />
+
             {/* IMAGE UPLOAD */}
             <div className={globalStyles.fullWidthSection}>
+
                 {/* STYLES COULD BE EXPORTED TO SEPARATE STYLE SHEETS SOON */}
                 <TitleDescription 
                     title="Upload Image"
